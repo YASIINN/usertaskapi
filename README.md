@@ -7,23 +7,23 @@ npm install
 
 
 
-<h4>Migration</h4>
+**Migration**
 ~~~~
 npx sequelize db:migrate
 ~~~~
 
-<h4>Çalıştırma</h4>
+**Çalıştırma**
 ~~~~
 
 npm start
 
 ~~~~
 
-<h4>Açıklama</h4>
+**Açıklama**
 ~~~~
 Kullanıcıların Todolarını ve  Kullanmış Oldukları
 Teknolojiler İçin Hazırlanmış API Örneği
 
 İlişkiler belongsToMany,HasMany,BelongsTo
 Orm    Sequelize
-
+~~~~
