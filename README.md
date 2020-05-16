@@ -14,7 +14,9 @@ npx sequelize db:migrate
 
 <h4>Çalıştırma</h4>
 ~~~~
+
 npm start
+
 ~~~~
 
 <h4>Açıklama</h4>
@@ -24,4 +26,4 @@ Teknolojiler İçin Hazırlanmış API Örneği
 
 İlişkiler belongsToMany,HasMany,BelongsTo
 Orm    Sequelize
-~~~~
+
