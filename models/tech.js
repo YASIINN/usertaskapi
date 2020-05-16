@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/db')
-class User extends Sequelize.Model {}
-User.init({
+
+class Tech extends Sequelize.Model {
+}
+
+Tech.init({
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         primaryKey: true,
@@ -11,10 +14,7 @@ User.init({
     name: {
         type: Sequelize.STRING,
     },
-    age: {
-        type: Sequelize.STRING
-    }
-}, { sequelize, created_at: "created_at", updated_at: "updated_at", modelName: 'user' })
+}, {sequelize, created_at: "created_at", updated_at: "updated_at", modelName: 'tech'})
 
-User.sync();
-module.exports = User
+
+module.exports = Tech

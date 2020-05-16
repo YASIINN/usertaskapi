@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/db')
-const User = require('../models/user')
-
 class Todo extends Sequelize.Model {
 }
 Todo.init({

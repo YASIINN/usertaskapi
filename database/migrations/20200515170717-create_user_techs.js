@@ -3,30 +3,28 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
 
-        return queryInterface.createTable('todos', {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER.UNSIGNED
-            },
-            title: {
-                type: Sequelize.STRING
-            },
-            descraption: {
-                type: Sequelize.STRING
-            },
+        return queryInterface.createTable('user_tech', {
+            id: Sequelize.INTEGER.UNSIGNED,
             user_id: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 references: {
-                    model:"users",
-                    key:"id"
+                    model: "users",
+                    key: "id"
                 },
-                allowNull:false,
+                allowNull: false,
                 onUpdate: "CASCADE",
                 onDelete: "CASCADE"
             },
-
+           tech_id: {
+                type: Sequelize.INTEGER.UNSIGNED,
+                references: {
+                    model: "teches",
+                    key: "id"
+                },
+                allowNull: false,
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE"
+            },
             created_at: {
                 allowNull: true,
                 type: Sequelize.DATE
@@ -35,12 +33,13 @@ module.exports = {
                 allowNull: true,
                 type: Sequelize.DATE
             }
-
         });
+
     },
 
     down: (queryInterface, Sequelize) => {
 
-        return queryInterface.dropTable('todos');
+        return queryInterface.dropTable('user_tech');
     }
 };
+/*model tabel name*/

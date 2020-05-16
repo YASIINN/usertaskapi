@@ -1,4 +1,3 @@
-const Todo = require('../../models/todo')
 const User = require('../../models/user')
 let userDataAccess = {
     async delete(where) {
@@ -13,21 +12,25 @@ let userDataAccess = {
         const user = await this.all(where)
         return user[0]
     },
-    async show(userId) {
-        const user = await User.findOne({where: {id: userId}, include: [{model: Todo}]})
+    async show(userId, inc, attr) {
+        const user = await User.findOne({
+            where: {id: userId},
+            include: inc,
+            attributes: attr.length > 0 ? attr : ""
+        })
         return JSON.parse(JSON.stringify(user))
     },
     async create(userModel) {
         const user = await User.create(userModel)
         return JSON.parse(JSON.stringify(user))
     },
-    async all(where) {
-        const users = await User.findAll({
-            where: where,
-            include: [{
-                model: Todo,
-            }]
-        })
+    async all(where, include, attr) {
+        const users = await User.findAll(
+            {
+                attributes: attr.length > 0 ? attr : "",
+                where: where,
+                include: include
+            })
         return JSON.parse(JSON.stringify(users));
     }
 }

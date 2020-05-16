@@ -1,12 +1,12 @@
-const todoService = require('../business/todo/index')
+const techService = require('../business/tech/index')
 const {validationResult} = require('express-validator');
 exports.show = async (req, res, next) => {
     try {
-        const {todoId} = req.params;
-        const todo = await todoService.findById(todoId);
-        console.log(todo)
-        if (todo !== null) {
-            res.status(200).json(todo)
+        const {techId} = req.params;
+        const tech = await techService.findById(techId);
+        console.log(tech)
+        if (tech !== null) {
+            res.status(200).json(tech)
 
         } else {
             res.status(404).json([])
@@ -20,8 +20,8 @@ exports.show = async (req, res, next) => {
 exports.index = async (req, res, next) => {
     try {
 
-        let todos = await todoService.all(req)
-        res.status(200).json(todos);
+        let techs = await techService.all(req)
+        res.status(200).json(techs);
     } catch (error) {
         res.status(500).json({err: error})
     }
@@ -33,8 +33,8 @@ exports.store = async (req, res, next) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({errors: errors.array()});
         }
-        let todo = await todoService.create(req);
-        res.status(201).json(todo)
+        let tech = await techService.create(req);
+        res.status(201).json(tech)
 
     } catch (error) {
         res.status(500).json({err: error})
@@ -42,16 +42,17 @@ exports.store = async (req, res, next) => {
 }
 exports.update = async (req, res, next) => {
     try {
-        let todo = await todoService.update(req)
+        let tech = await techService.update(req)
         /*1 - 0 message Success*/
-        res.status(200).json(todo)
+        res.status(200).json(tech)
     } catch (error) {
         res.status(500).json({err: error})
     }
 }
+
 exports.destroy = async (req, res, next) => {
     try {
-        await todoService.delete(req)
+        await techService.delete(req)
         res.status(200).json({message: "Success"})
     } catch (error) {
         res.status(500).json({err: error})

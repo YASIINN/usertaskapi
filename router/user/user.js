@@ -7,4 +7,6 @@ router.post("/create", [...userService.validation("create")], userController.sto
 router.get("/:userId", userController.show);
 router.post("/update", [...userService.validation("update")], userController.update);
 router.post("/delete", [...userService.validation('delete')], userController.destroy);
+router.post("/:userId/todos",userController.todos)
+router.post("/:userId/teches",userController.teches)
 module.exports = router;

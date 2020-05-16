@@ -10,7 +10,7 @@ let userService = {
     },
     async findById(userId) {
         if (parseInt(userId) > 0) {
-            let data = await userDal.show(userId)
+            let data = await userDal.show(userId, [], [])
             return data
         } else {
             return []
@@ -37,19 +37,68 @@ let userService = {
         const data = await userDal.create({name, age})
         return data
     },
-
     async all(request) {
-        const {urlparse} = request.body;
+        const {urlparse, attr} = request.body;
         let where;
         if (urlparse === undefined || urlparse === null) {
             where = "";
         } else {
             where = queryParser.parseQuery(urlparse)
         }
-        const data = await userDal.all(where == '' ? null : where)
+        const data = await userDal.all(where == '' ? null : where, [], attr != undefined ? attr : [])
         return data
+    },
+    async todos(userId, request) {
+        if (parseInt(userId) > 0) {
+            let user = await this.findById(userId)
+            if (user) {
+                const {urlparse, attr} = request.body;
+                let where;
+                if (urlparse === undefined || urlparse === null) {
+                    where = "";
+                } else {
+                    where = queryParser.parseQuery(urlparse)
+                }
+                let todos = await userDal.show(userId, [{
+                    association: "todos",
+                    where: where == '' ? null : where,
+                    attributes: attr != undefined ? attr : "",
+                }], [])
+                return todos;
+            } else {
+                return []
+            }
+        } else {
+            return []
+        }
+    },
+    async teches(userId, request) {
+        if (parseInt(userId) > 0) {
+            let user = await this.findById(userId)
+            if (user) {
+                const {urlparse, attr} = request.body;
+                let where;
+                if (urlparse === undefined || urlparse === null) {
+                    where = "";
+                } else {
+                    where = queryParser.parseQuery(urlparse)
+                }
+                let teches = await userDal.show(userId, [{
+                    association: "teches",
+                    through:{
+                        attributes:['createdAt','updatedAt']
+                    },
+                    where: where == '' ? null : where,
+                    attributes: attr != undefined ? attr : "",
+                }], [])
+                return teches;
+            } else {
+                return []
+            }
+        } else {
+            return []
+        }
     }
-
 }
 
 module.exports = userService
